@@ -10,8 +10,8 @@ namespace MongoDBDemo
         [BsonId] // mongo _id
         public Guid Id { get; set; }
         public Guid OwnerId { get; set; }
-        [BsonIgnore]
-        public List<PersonModel> Owners { get; set; }
+        public PersonModel Owner { get; set; }
+        public bool ShouldSerializeOwner() { return false; }
         public int YearMade { get; set; }
     }
 }

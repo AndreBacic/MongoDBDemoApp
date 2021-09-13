@@ -60,10 +60,11 @@ namespace MongoDBDemo
             var collection = _db.GetCollection<T>(localTable);
             var filter = Builders<T>.Filter.Eq("Id", id);
 
-            var m = collection.Aggregate()
+            var a = collection.Aggregate()
                 .Match(filter)
-                .Lookup(foreignTable, localField, foreignField, asField);
-            var a = m.As<T>().ToList();
+                .Lookup(foreignTable, localField, foreignField, asField)
+                .Unwind(asField)
+                .As<T>().ToList();
             return a.First();
         }
     }

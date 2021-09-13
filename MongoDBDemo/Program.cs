@@ -18,24 +18,24 @@ namespace MongoDBDemo
 
             //RUD_Person(db, recs);
 
-            // CreateCar(db);
-            var car = db.LoadRecords<CarModel>("Cars").First(c => c.YearMade == 2003);
+            //CreateCar(db);
+            var car = db.LoadRecords<CarModel>("Cars").First(c => c.YearMade == 2013);
 
-            car = db.AggregateRecord<CarModel>("Cars", "Users", car.Id, "OwnerId", "Id", "Owners");
+            car = db.AggregateRecord<CarModel>("Cars", "Users", car.Id, "OwnerId", "_id", "Owner");
 
-            Console.WriteLine($"Car with id { car.Id }:\nYear - { car.YearMade }\nOwner name - { car.Owners[0].FirstName }");
+            Console.WriteLine($"Car with id { car.Id }:\nYear - { car.YearMade }\nOwner name - { car.Owner.FirstName }");
 
             Console.ReadLine();
         }
 
         private static CarModel CreateCar(MongoCRUD db)
         {
-            var person = db.LoadRecords<PersonModel>("Users").First();
+            var person = db.LoadRecords<PersonModel>("Users")[1];
 
             var car = new CarModel
             {
                 OwnerId = person.Id,
-                YearMade = 2003
+                YearMade = 2013
             };
 
             db.InsertRecord("Cars", car);
