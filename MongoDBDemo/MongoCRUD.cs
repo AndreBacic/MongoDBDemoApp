@@ -54,7 +54,7 @@ namespace MongoDBDemo
             collection.DeleteOne(filter);
         }
 
-        public T AggregateRecord<T>(string localTable, string foreignTable, Guid id, 
+        public T LookupRecord<T>(string localTable, string foreignTable, Guid id, 
             string localField, string foreignField, string asField)
         {
             var collection = _db.GetCollection<T>(localTable);

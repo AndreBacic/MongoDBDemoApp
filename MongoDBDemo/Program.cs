@@ -21,7 +21,7 @@ namespace MongoDBDemo
             //CreateCar(db);
             var car = db.LoadRecords<CarModel>("Cars").First(c => c.YearMade == 2013);
 
-            car = db.AggregateRecord<CarModel>("Cars", "Users", car.Id, "OwnerId", "_id", "Owner");
+            car = db.LookupRecord<CarModel>("Cars", "Users", car.Id, "OwnerId", "_id", "Owner");
 
             Console.WriteLine($"Car with id { car.Id }:\nYear - { car.YearMade }\nOwner name - { car.Owner.FirstName }");
 
